@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using netApiCourse.Configuration;
 using netApiCourse.Data;
 using Serilog;
 
@@ -24,9 +25,9 @@ builder.Services.AddCors(options =>
 
 builder.Host.UseSerilog((ctx,cl) => cl.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
-
-var app = builder.Build();
+var app = builder.Build();  
 
 
 // Configure the HTTP request pipeline.
