@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using netApiCourse.Configuration;
+using netApiCourse.Contracts;
 using netApiCourse.Data;
+using netApiCourse.Repository;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,8 @@ builder.Services.AddCors(options =>
 builder.Host.UseSerilog((ctx,cl) => cl.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ICountryRepository,CountryRepository>();
 
 var app = builder.Build();  
 
